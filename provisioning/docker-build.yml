@@ -3,7 +3,8 @@
   docker_image:
     name: "{{ item.name }}"
     tag: "{{ item.tag }}"
-    path: "/vagrant/provisioning/{{ item.directory }}"
+    #path: "/vagrant/provisioning/{{ item.directory }}"
+    path: "{{ item.directory }}"
     state: build
   with_items:
     - { name: postgresql, tag: 9.4, directory: postgresql }

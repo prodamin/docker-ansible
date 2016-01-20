@@ -33,7 +33,7 @@ ENV PATH /usr/lib/postgresql/$PG_MAJOR/bin:$PATH
 ENV PGDATA /var/lib/postgresql/data
 #VOLUME /var/lib/postgresql/data
 
-COPY docker-entrypoint.sh /
+ADD ./docker-entrypoint.sh /
 RUN chmod +x /docker-entrypoint.sh
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
