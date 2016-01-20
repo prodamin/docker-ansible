@@ -43,6 +43,7 @@ EXPOSE 9000
 ENV PHPSERVER true
 
 COPY run.sh /
+RUN chmod +x /run.sh
 
 ENTRYPOINT ["/run.sh"]
 

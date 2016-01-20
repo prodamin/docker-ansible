@@ -21,6 +21,7 @@ ADD ./site.conf /etc/nginx/conf.d/default.conf
 RUN chown www-data:www-data -R /etc/nginx/upstream /etc/nginx/conf.d/default.conf
 
 ADD ./run.sh /
+RUN chmod +x /run.sh
 
 CMD ["/run.sh"]
 
