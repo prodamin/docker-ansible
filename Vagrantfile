@@ -23,7 +23,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
      sudo apt-get update
      sudo apt-get install -y ansible
      echo 127.0.0.1 >> /etc/ansible/hosts
-     ansible-playbook -e 'ANSIBLE_HOST_KEY_CHECKING=False' /vagrant/provisioning/main.yml -c local
+     mkdir -p /ansible-docker
+     git clone https://github.com/prodamin/docker-ansible.git /ansible-docker 
+     ansible-playbook /ansible-docker/provisioning/main.yml -c local
+
    SHELL
 
 
