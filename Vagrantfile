@@ -25,8 +25,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
      echo 127.0.0.1 >> /etc/ansible/hosts
      mkdir -p /ansible-docker
      git clone https://github.com/prodamin/docker-ansible.git /ansible-docker 
-     ansible-playbook /ansible-docker/provisioning/main.yml -c local
-
+     cd /ansible-docker/provisioning && ansible-playbook main.yml -c local
    SHELL
 
 
