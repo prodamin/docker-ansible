@@ -21,7 +21,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
      sudo apt-get install -y software-properties-common
      sudo apt-add-repository -y ppa:ansible/ansible
      sudo apt-get update
-     sudo apt-get install -y ansible
+     sudo apt-get install -y ansible git
      echo 127.0.0.1 >> /etc/ansible/hosts
      mkdir -p /ansible-docker
      git clone https://github.com/prodamin/docker-ansible.git /ansible-docker 
