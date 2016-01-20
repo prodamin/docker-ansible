@@ -1,0 +1,12 @@
+---
+- name: Build Docker images from Dockerfiles.
+  docker_image:
+    name: "{{ item.name }}"
+    tag: "{{ item.tag }}"
+    path: "/vagrant/provisioning/{{ item.directory }}"
+    state: build
+  with_items:
+    - { name: postgresql, tag: 9.4, directory: postgresql }
+    - { name: nginx-proxy, tag: 1.9.9, directory: nginx }
+    - { name: phpfpm, tag: 5.5.9, directory: phpfpm }
+    - { name: phpstorage, tag: latest, directory: phpstorage}

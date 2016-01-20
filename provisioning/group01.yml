@@ -1,0 +1,83 @@
+---
+
+- name: Run postgresql master group 01
+  docker:
+    image: postgresql:9.4
+    name: g01-master
+    state: running
+    command: master
+    restart_policy: always
+    ports: "5433:5432"
+    env:
+      POSTGRES_USER: test
+      POSTGRES_PASSWORD: test
+
+- pause: seconds=30
+
+- name: Run postgresql slave 01 group 01
+  docker: 
+    image: postgresql:9.4
+    name: g01-slave01
+    state: running
+    restart_policy: always
+    command: slave
+    ports: "5434:5432"
+    links: 
+    - "g01-master:master"
+
+- name: Run postgresql slave 02 group 01
+  docker: 
+    image: postgresql:9.4
+    name: g01-slave02
+    state: running
+    restart_policy: always
+    command: slave
+    ports: "5435:5432"
+    links: 
+    - "g01-master:master"
+
+- name: Run a phpstorage
+  docker:
+    image: phpstorage:latest
+    name: g01-phpstorage
+    state: present
+
+- name: Run phpfpm01 group 01
+  docker: 
+    image: phpfpm:5.5.9
+    name: g01-phpfpm01
+    state: running
+    restart_policy: always
+    links: 
+    - "g01-master:master"
+    volumes_from:
+    - "g01-phpstorage"
+
+- name: Run phpfpm02 group 01
+  docker: 
+    image: phpfpm:5.5.9
+    name: g01-phpfpm02
+    state: running
+    restart_policy: always
+    links: 
+    - "g01-master:master"
+    volumes_from:
+    - "g01-phpstorage"
+
+
+- name: Run nginx group 01
+  docker: 
+    image: nginx-proxy:1.9.9
+    name: g01-nginx
+    state: running
+    restart_policy: always
+    ports: "8080:80"
+    env:
+      GIT_REPO: https://github.com/prodamin/testapp1.git
+    links: 
+    - "g01-phpfpm01"
+    - "g01-phpfpm02"
+    volumes_from:
+    - "g01-phpstorage"
+
+

@@ -1,0 +1,17 @@
+---
+- hosts: all
+  sudo: yes
+  connection: local
+
+  pre_tasks:
+    - name: Update apt cache if needed.
+      apt: update_cache=yes cache_valid_time=3600
+
+  roles:
+    - { role: docker_ubuntu, pip_version_pip: 7.1.2 }
+
+  tasks:
+    - include: setup.yml
+    - include: docker-build.yml
+    - include: group01.yml
+    - include: group02.yml
